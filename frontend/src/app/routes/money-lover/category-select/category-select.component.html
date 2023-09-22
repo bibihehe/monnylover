@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>
+    {{title}}
+</h2>
+<div mat-dialog-content>
+    <mat-form-field class="w-full">
+        <input matInput type="text" [(ngModel)]="search" (keyup.enter)="getDataCategories()" placeholder="Tìm kiếm" />
+        <button mat-icon-button matSuffix (click)="getDataCategories()">
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-form-field>
+    <ng-container *ngIf="!loading; else loadingTpl">
+        <mat-list>
+            <mat-list-item class="hover-item" *ngFor="let category of categories" (click)="select(category)">
+                <span class="icon icon-select-category" mat-list-icon>
+                    <ml-icon [path]="category.icon.path"></ml-icon>
+                </span>
+                <div mat-line>
+                    <div fxLayout="row">
+                        <div fxFlex="90" fxLayout="row" fxLayoutAlign="start center">
+                            {{category.name}}
+                        </div>
+                        <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center" *ngIf="category._id == selectedCategory._id">
+                            <mat-icon>check</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </ng-container>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="close()">Đóng</button>
+    <button mat-button color="primary" (click)="save()">Lưu</button>
+</div>
+
+<!-- loading -->
+<ng-template #loadingTpl>
+    <app-loading></app-loading>
+</ng-template>

@@ -1,0 +1,62 @@
+.ml {
+    .card-inside-tab {
+        margin-bottom: 0px;
+    }
+
+    .mat-paginator {
+        font-size: 14px !important;
+    }
+}
+.hover-item {
+    &:hover {
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .icon-list-item {
+        margin-right: 10px;
+    }
+    .subtitle-list-item {
+        color: #737373;
+        font-size: small;
+        font-style: italic;
+    }
+}
+
+.mat-list-item > .mat-list-item-content span.icon {
+    width: 35px;
+    height: 35px;
+}
+
+.app-loading {
+    width: 100%;
+    height: 100%;
+}
+
+button .mat-icon {
+    font-size: 20px;
+}
+
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+    th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    table {
+        min-width: 500px;
+        width: 100%;
+    }
+}
+
+*.mat-success-outlined {
+    color: green;
+}
+
+.text-selected-items {
+    font-style: italic;
+    font-size: small;
+    padding: 0 16px;
+}

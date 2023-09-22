@@ -1,0 +1,53 @@
+<mat-card>
+    <mat-card-title>Câu hỏi bảo mật</mat-card-title>
+    <mat-card-subtitle>
+        Danh sách câu hỏi để người dùng có thể sử dụng để định danh chính chủ cho tài khoản của mình.
+    </mat-card-subtitle>
+    <mat-card-content>
+        <div class="p-y-4">
+            <mat-form-field class="w-full">
+                <input matInput type="text" [(ngModel)]="searchKey" (keyup.enter)="searchQuestion()"
+                    placeholder="Tìm kiếm" />
+                <button mat-icon-button matSuffix (click)="searchQuestion()">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-card-actions>
+                <button mat-button color="primary" (click)="open()">
+                    <mat-icon>add</mat-icon>
+                    Thêm mới
+                </button>
+                <button mat-button color="accent" *ngIf="getNumOfSelected()" (click)="delete()">
+                    <mat-icon>delete</mat-icon>
+                    Xóa
+                </button>
+            </mat-card-actions>
+            <p class="text-selected-items" *ngIf="getNumOfSelected()">
+                {{getNumOfSelected()}} câu hỏi đã được chọn
+            </p>
+        </div>
+        <ng-container *ngIf="loading; else loaded">
+            <app-loading></app-loading>
+        </ng-container>
+        <ng-template #loaded>
+            <mat-list *ngIf="listQuestions.length > 0; else emptyTpl">
+                <mat-list-item class="hover-item" *ngFor="let question of listQuestions; index as i">
+                    <div class="w-full" fxLayout="row">
+                        <div fxFlex="90" class="tile-list-item">
+                            <span (click)="open(question, $event)">{{question.question}}</span>
+                            <div class="subtitle-list-item" *ngIf="question.currentUsage">{{question.currentUsage}} người đang sử dụng câu hỏi này</div>
+                        </div>
+                        <div fxFlex="10">
+                            <mat-checkbox [(ngModel)]="listChecked[i]" [disabled]="question.currentUsage > 0"></mat-checkbox>
+                        </div>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+            <ng-template #emptyTpl>
+                <empty></empty>
+            </ng-template>
+        </ng-template>
+        <mat-paginator [length]="total" [pageSize]="pageSize" [pageIndex]="page" [pageSizeOptions]="pageSizeOptions" (page)="onChangePage($event)">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>
